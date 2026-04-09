@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { addDays, format } from "date-fns";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Phone, Mail, FileText, Stethoscope, CheckCircle } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Label } from "./ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Calendar as CalendarComponent } from "./ui/calendar";
-import { format, addDays } from "date-fns";
+import { Calendar, CheckCircle, Clock, FileText, Mail, Phone, Stethoscope, User } from "lucide-react";
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { doctors } from "../data/doctors";
 import { services } from "../data/services";
+import { appointmentApi } from "../lib/api";
 import { SuccessModal } from "./SuccessModal";
+import { Button } from "./ui/button";
+import { Calendar as CalendarComponent } from "./ui/calendar";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Textarea } from "./ui/textarea";
 
 export const AppointmentForm = () => {
   const [searchParams] = useSearchParams();
@@ -32,6 +33,7 @@ export const AppointmentForm = () => {
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const timeSlots = [
     { value: "morning", label: "Morning (9AM - 12PM)" },
@@ -84,33 +86,32 @@ export const AppointmentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
+    setSubmitError("");
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const doctorName = doctors.find((d) => d.id.toString() === formData.doctorId)?.name || "";
+      const serviceName = services.find((s) => s.id.toString() === formData.serviceId)?.name || "";
 
-    // Get existing appointments from localStorage
-    const existingAppointments = JSON.parse(localStorage.getItem("appointments") || "[]");
-    
-    // Create new appointment
-    const newAppointment = {
-      id: Date.now().toString(),
-      ...formData,
-      date: formData.date.toISOString(),
-      doctorName: doctors.find((d) => d.id.toString() === formData.doctorId)?.name,
-      serviceName: services.find((s) => s.id.toString() === formData.serviceId)?.name,
-      status: "pending",
-      createdAt: new Date().toISOString()
-    };
+      await appointmentApi.create({
+        ...formData,
+        date: formData.date.toISOString(),
+        doctorName,
+        serviceName,
+      });
 
-    // Save to localStorage
-    localStorage.setItem("appointments", JSON.stringify([...existingAppointments, newAppointment]));
-
-    setIsSubmitting(false);
-    setShowSuccess(true);
+      setShowSuccess(true);
+    } catch (error) {
+      setSubmitError(
+        error?.response?.data?.detail ||
+          "Could not submit appointment. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field, value) => {
@@ -131,6 +132,7 @@ export const AppointmentForm = () => {
       timeSlot: "",
       notes: ""
     });
+    setSubmitError("");
     setShowSuccess(false);
   };
 
@@ -345,6 +347,9 @@ export const AppointmentForm = () => {
 
         {/* Submit Button */}
         <div className="mt-8">
+          {submitError && (
+            <p className="mb-3 text-red-500 text-sm font-body">{submitError}</p>
+          )}
           <Button
             type="submit"
             data-testid="submit-appointment-btn"

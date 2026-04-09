@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
+import { appointmentApi } from "../lib/api";
 
 const ADMIN_PASSWORD = "admin123";
 
@@ -25,6 +26,8 @@ export const Admin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [appointments, setAppointments] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [dataError, setDataError] = useState("");
 
   useEffect(() => {
     // Check if already authenticated
@@ -35,9 +38,23 @@ export const Admin = () => {
     }
   }, []);
 
-  const loadAppointments = () => {
-    const stored = JSON.parse(localStorage.getItem("appointments") || "[]");
-    setAppointments(stored.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+  const loadAppointments = async () => {
+    setDataError("");
+    setIsLoading(true);
+    try {
+      const response = await appointmentApi.list();
+      const sorted = [...response.data].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setAppointments(sorted);
+    } catch (err) {
+      setDataError(
+        err?.response?.data?.detail ||
+          "Failed to load appointments. Please refresh and try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleLogin = (e) => {
@@ -58,18 +75,32 @@ export const Admin = () => {
     setPassword("");
   };
 
-  const updateStatus = (id, status) => {
-    const updated = appointments.map((apt) =>
-      apt.id === id ? { ...apt, status } : apt
-    );
-    setAppointments(updated);
-    localStorage.setItem("appointments", JSON.stringify(updated));
+  const updateStatus = async (id, status) => {
+    setDataError("");
+    try {
+      const response = await appointmentApi.updateStatus(id, status);
+      setAppointments((prev) =>
+        prev.map((apt) => (apt.id === id ? response.data : apt))
+      );
+    } catch (err) {
+      setDataError(
+        err?.response?.data?.detail ||
+          "Failed to update appointment status."
+      );
+    }
   };
 
-  const deleteAppointment = (id) => {
-    const updated = appointments.filter((apt) => apt.id !== id);
-    setAppointments(updated);
-    localStorage.setItem("appointments", JSON.stringify(updated));
+  const deleteAppointment = async (id) => {
+    setDataError("");
+    try {
+      await appointmentApi.remove(id);
+      setAppointments((prev) => prev.filter((apt) => apt.id !== id));
+    } catch (err) {
+      setDataError(
+        err?.response?.data?.detail ||
+          "Failed to delete appointment."
+      );
+    }
   };
 
   const getStatusColor = (status) => {
@@ -171,6 +202,10 @@ export const Admin = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
+        {dataError && (
+          <p className="mb-4 text-red-600 font-body text-sm">{dataError}</p>
+        )}
+
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
           {[
@@ -193,7 +228,11 @@ export const Admin = () => {
             </h2>
           </div>
 
-          {appointments.length === 0 ? (
+          {isLoading ? (
+            <div className="p-12 text-center">
+              <p className="font-body text-navy/60">Loading appointments...</p>
+            </div>
+          ) : appointments.length === 0 ? (
             <div className="p-12 text-center">
               <Calendar size={48} className="text-navy/20 mx-auto mb-4" />
               <p className="font-body text-navy/60">No appointments yet</p>
