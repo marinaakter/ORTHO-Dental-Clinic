@@ -1,0 +1,215 @@
+{
+  "identity": {
+    "role": "E1: The Anti-AI Designer",
+    "mission": "Create a 'Luxury Medical Spa' aesthetic that breaks generic dental tropes. Fusion of 'Swiss Precision' and 'Hospitality Warmth'.",
+    "principles": [
+      "Fusion over Imitation: Mix dental clinical trust with spa-like luxury.",
+      "Emotion First: Every pixel must whisper 'Comfort' and 'Exclusivity'.",
+      "Content is King: Directed storytelling, not just information dumping.",
+      "Zoom In: Intimate close-ups of smiles and textures.",
+      "Negative Space: Luxurious breathing room (3x standard spacing).",
+      "Contrast: High contrast typography (Serif Headings vs Sans Body)."
+    ],
+    "anti_patterns": [
+      "No 'Clinical Blue' (Standard #007AFF is banned). Use Deep Navy or Teal.",
+      "No Center-Everything layouts. Use asymmetry.",
+      "No generic 'Inter' font for headings.",
+      "No flat, boring white backgrounds. Use 'Pearl White' or textured subtle noise."
+    ]
+  },
+  "theme": {
+    "mode": "light",
+    "name": "Luxury Medical Spa",
+    "description": "A sophisticated, high-end aesthetic inspired by 5-star hotels and premium wellness centers."
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "name": "Deep Navy",
+        "value": "#0B1F3A",
+        "usage": "Headings, Strong CTAs, Footer Background"
+      },
+      "background": {
+        "name": "Pearl White",
+        "value": "#F8F6F2",
+        "usage": "Main Background, Cards (with texture)"
+      },
+      "accent": {
+        "name": "Gold",
+        "value": "#C9A84C",
+        "usage": "Divider lines, Icons, Subtle Highlights, Borders"
+      },
+      "highlight": {
+        "name": "Soft Teal",
+        "value": "#3ABFBF",
+        "usage": "Secondary Buttons, Success States, Soft Background Accents"
+      },
+      "text": {
+        "body": "#334155",
+        "heading": "#0B1F3A",
+        "muted": "#64748B"
+      }
+    },
+    "tailwind_config_extension": {
+      "colors": {
+        "navy": "#0B1F3A",
+        "pearl": "#F8F6F2",
+        "gold": "#C9A84C",
+        "teal": "#3ABFBF"
+      }
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": {
+        "family": "Cormorant Garamond",
+        "fallback": "serif",
+        "google_font_url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap",
+        "usage": "All Headings (h1-h6), Hero Text, Quotes"
+      },
+      "body": {
+        "family": "DM Sans",
+        "fallback": "sans-serif",
+        "google_font_url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap",
+        "usage": "Paragraphs, Buttons, Inputs, Navigation"
+      }
+    },
+    "rules": [
+      "Headings: tracking-tight, leading-none, font-semibold or font-light (mix weights).",
+      "Body: leading-relaxed, tracking-normal.",
+      "Overlines: Uppercase, tracking-widest, text-xs, Gold color."
+    ]
+  },
+  "layout_strategies": {
+    "spacing": {
+      "scale": "Generous (2x-3x standard)",
+      "container_padding": "px-6 md:px-12 lg:px-24",
+      "section_spacing": "py-24 or py-32"
+    },
+    "grids": {
+      "services": "Bento Grid (Mode A: Tetris). Mix wide spans with tall spans. Don't use uniform cards.",
+      "doctors": "Asymmetric List or Staggered Grid. Avoid simple 4-column row."
+    },
+    "surfaces": {
+      "glassmorphism": "Use for Sticky Header and Floating Actions. bg-pearl/80 backdrop-blur-md border-b border-white/20.",
+      "cards": "Flat Pearl White or White with 1px Gold/10 border. Soft ambient shadow: shadow-[0_8px_30px_rgb(0,0,0,0.04)]."
+    }
+  },
+  "components": {
+    "header": {
+      "style": "Sticky, Glassmorphism",
+      "elements": "Logo (Text/Icon), Nav Links (DM Sans), Book Now Button (Gold pill shape)"
+    },
+    "hero": {
+      "style": "Parallax, Asymmetric",
+      "elements": "Large Serif Headline, Gold Accent Line, Floating Image (Parallax), Booking CTA"
+    },
+    "buttons": {
+      "primary": "bg-navy text-white hover:bg-navy/90 rounded-full px-8 py-6 text-lg transition-transform hover:scale-105",
+      "secondary": "border border-gold text-navy hover:bg-gold/10 rounded-full px-8 py-6"
+    },
+    "services_grid": {
+      "style": "Bento Grid",
+      "cards": "Minimalist, Icon or Number large, Title serif, hidden details revealed on hover."
+    },
+    "forms": {
+      "style": "Clean, Minimal",
+      "inputs": "bg-transparent border-b border-navy/20 focus:border-navy rounded-none px-0 py-4 placeholder:text-navy/40"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1565090567208-c8038cfcf6cd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHwxfHxkZW50aXN0JTIwZG9jdG9yJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzczNjA1Mzg2fDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Luxury Dental Care - Woman holding mirror"
+      },
+      "services": [
+        {
+          "name": "General Dentistry",
+          "url": "https://images.unsplash.com/photo-1631596577204-53ad0d6e6978?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHwzfHxkZW50aXN0JTIwZG9jdG9yJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzczNjA1Mzg2fDA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "name": "Cosmetic",
+          "url": "https://images.unsplash.com/photo-1758205308181-d52b41e00cef?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHwyfHxkZW50aXN0JTIwZG9jdG9yJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzczNjA1Mzg2fDA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "name": "Implants",
+          "url": "https://images.unsplash.com/photo-1642844819197-5f5f21b89ff8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBkZW50YWwlMjBjbGluaWMlMjBpbnRlcmlvcnxlbnwwfHx8fDE3NzM2MDUzOTV8MA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "name": "Orthodontics",
+          "url": "https://images.pexels.com/photos/9957423/pexels-photo-9957423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        }
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sarah Khan",
+          "role": "Chief Orthodontist",
+          "url": "https://images.unsplash.com/photo-1758600587781-e98ef705ab0e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHw0fHxjb25maWRlbnQlMjBzbWlsZSUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MzYwNTM5NHww&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "name": "Dr. Rafiq Ahmed",
+          "role": "Implant Specialist",
+          "url": "https://images.unsplash.com/photo-1674775372058-c4c8813c6611?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHw0fHxkZW50aXN0JTIwZG9jdG9yJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzczNjA1Mzg2fDA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "name": "Dr. Amina Rahman",
+          "role": "Cosmetic Dentist",
+          "url": "https://images.unsplash.com/photo-1758598497232-e89e4cb1f5d4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwzfHxjb25maWRlbnQlMjBzbWlsZSUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MzYwNTM5NHww&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "name": "Dr. Tanvir Hasan",
+          "role": "General Dentist",
+          "url": "https://images.unsplash.com/photo-1769071166832-1d0f4ee30712?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxjb25maWRlbnQlMjBzbWlsZSUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MzYwNTM5NHww&ixlib=rb-4.1.0&q=85"
+        }
+      ],
+      "testimonials": [
+        "https://images.unsplash.com/photo-1758874383973-83166565759c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwyfHxjb25maWRlbnQlMjBzbWlsZSUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MzYwNTM5NHww&ixlib=rb-4.1.0&q=85"
+      ],
+      "backgrounds": {
+        "clinic_interior": "https://images.pexels.com/photos/4269276/pexels-photo-4269276.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      }
+    },
+    "icons": {
+      "library": "Lucide React",
+      "style": "Stroke width 1.5px, Gold color."
+    }
+  },
+  "motion": {
+    "library": "Framer Motion",
+    "defaults": {
+      "fade_in": {
+        "initial": { "opacity": 0, "y": 20 },
+        "whileInView": { "opacity": 1, "y": 0 },
+        "viewport": { "once": true },
+        "transition": { "duration": 0.6, "ease": "easeOut" }
+      },
+      "stagger_container": {
+        "hidden": { "opacity": 0 },
+        "show": {
+          "opacity": 1,
+          "transition": { "staggerChildren": 0.1 }
+        }
+      }
+    },
+    "parallax": "Use 'useScroll' and 'useTransform' for Hero image and Service cards."
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Install fonts 'Cormorant Garamond' and 'DM Sans' in index.css immediately.",
+    "2. CONFIG: Update tailwind.config.js to include the custom colors (navy, pearl, gold, teal).",
+    "3. HEADER: Create a 'floating' glass header. It should be transparent at top, and become glass on scroll.",
+    "4. HERO: Implement the Parallax effect. Text on Left, Image on Right (overlapping slightly).",
+    "5. SERVICES: Do NOT use a basic grid. Use the 'Bento' layout defined above.",
+    "6. ADMIN: Keep it simple. Use localStorage. Create a hidden route '/admin' protected by a simple password check (e.g. 'admin123').",
+    "7. BOOKING: Store appointments in localStorage 'appointments' array. Show them in Admin panel.",
+    "8. MAP: Use a Google Maps embed iframe for Dhaka (centered on generic Gulshan/Banani area).",
+    "9. TEST IDs: Add data-testid to all inputs and buttons."
+  ],
+  "universal_guidelines": [
+    "Don't make generic centered layouts.",
+    "Use glass-morphism effects with backdrop filters.",
+    "NEVER use AI assistant Emoji characters.",
+    "Every interaction needs micro-animations.",
+    "Use 2-3x more spacing than feels comfortable."
+  ]
+}
